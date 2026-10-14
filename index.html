@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Velocity Motors — Buy Your Next Car Online</title>
+  <meta name="description" content="Velocity Motors: certified cars, easy financing and home delivery." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script>
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js-anim');
+  </script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" defer></script>
+  <script src="js/animations.js" defer></script>
+  <script type="module" src="js/hero3d.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo" aria-label="Velocity Motors home">
+        <span class="logo-mark">V</span><span class="logo-text">Velocity<b>Motors</b></span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="#inventory">Inventory</a>
+        <a href="#features">Features</a>
+        <a href="#brands">Brands</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn btn-primary nav-cta">Book Test Drive</a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-fallback" aria-hidden="true"></div>
+
+      <div class="loader" id="loader">
+        <div class="loader-text">Starting engine… <span id="loader-pct">0%</span></div>
+        <div class="loader-bar"><span id="loader-fill"></span></div>
+      </div>
+
+      <div class="container hero-content">
+        <p class="eyebrow hero-anim">Certified · Financed · Delivered</p>
+        <h1 class="hero-title hero-anim">Drive Your <span class="accent">Dream</span></h1>
+        <p class="hero-sub hero-anim">Over 10,000 inspected cars, transparent prices and delivery to your door, all handled online.</p>
+        <div class="hero-ctas hero-anim">
+          <a href="#inventory" class="btn btn-primary">Browse Cars</a>
+          <a href="#contact" class="btn btn-ghost">Sell Your Car</a>
+        </div>
+
+        <form class="search-bar hero-anim" onsubmit="event.preventDefault(); document.getElementById('inventory').scrollIntoView({behavior:'smooth'});">
+          <label>
+            <span>Make</span>
+            <select><option>Any make</option><option>Porsche</option><option>BMW</option><option>Audi</option><option>Tesla</option><option>Mercedes</option></select>
+          </label>
+          <label>
+            <span>Body</span>
+            <select><option>Any body</option><option>SUV</option><option>Sedan</option><option>Sports</option><option>EV</option></select>
+          </label>
+          <label>
+            <span>Budget</span>
+            <select><option>No limit</option><option>Under $30k</option><option>$30k – $60k</option><option>$60k – $100k</option><option>$100k+</option></select>
+          </label>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="stats">
+      <div class="container stats-grid">
+        <div class="stat" data-animate="fade-up"><strong data-count="10000" data-suffix="+">0</strong><span>Cars in stock</span></div>
+        <div class="stat" data-animate="fade-up"><strong data-count="50000" data-suffix="+">0</strong><span>Happy buyers</span></div>
+        <div class="stat" data-animate="fade-up"><strong data-count="4.9" data-decimals="1" data-suffix="★">0</strong><span>Average rating</span></div>
+        <div class="stat" data-animate="fade-up"><strong data-count="120">0</strong><span>Brands</span></div>
+      </div>
+    </section>
+
+    <!-- ============ INVENTORY ============ -->
+    <section class="section" id="inventory">
+      <div class="container">
+        <div class="section-head" data-animate="fade-up">
+          <p class="eyebrow">Featured inventory</p>
+          <h2>Hand-picked for you</h2>
+        </div>
+
+        <div class="filters" role="tablist" aria-label="Filter cars" data-animate="fade-up">
+          <button class="filter active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button class="filter" data-filter="suv" role="tab" aria-selected="false">SUV</button>
+          <button class="filter" data-filter="sedan" role="tab" aria-selected="false">Sedan</button>
+          <button class="filter" data-filter="sports" role="tab" aria-selected="false">Sports</button>
+          <button class="filter" data-filter="ev" role="tab" aria-selected="false">EV</button>
+        </div>
+
+        <div class="car-grid">
+          <article class="car-card" data-type="sports" data-animate="fade-up">
+            <div class="car-img"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=70" alt="Silver Porsche 911 parked on a road" loading="lazy" /><span class="tag">Sports</span></div>
+            <div class="car-body">
+              <h3>Porsche 911 Carrera</h3>
+              <p class="meta">2023 · 8,200 km · Petrol</p>
+              <div class="car-foot"><span class="price">$118,900</span><a href="#contact" class="btn btn-small">View</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-type="ev" data-animate="fade-up">
+            <div class="car-img"><img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=70" alt="Red Tesla Model S at a charging station" loading="lazy" /><span class="tag">EV</span></div>
+            <div class="car-body">
+              <h3>Tesla Model S</h3>
+              <p class="meta">2022 · 21,500 km · Electric</p>
+              <div class="car-foot"><span class="price">$72,400</span><a href="#contact" class="btn btn-small">View</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-type="suv" data-animate="fade-up">
+            <div class="car-img"><img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=70" alt="White SUV on a mountain road" loading="lazy" /><span class="tag">SUV</span></div>
+            <div class="car-body">
+              <h3>BMW X5 xDrive40i</h3>
+              <p class="meta">2021 · 34,000 km · Hybrid</p>
+              <div class="car-foot"><span class="price">$58,700</span><a href="#contact" class="btn btn-small">View</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-type="sedan" data-animate="fade-up">
+            <div class="car-img"><img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=70" alt="Black Mercedes sedan in a city at night" loading="lazy" /><span class="tag">Sedan</span></div>
+            <div class="car-body">
+              <h3>Mercedes-Benz C300</h3>
+              <p class="meta">2022 · 18,900 km · Petrol</p>
+              <div class="car-foot"><span class="price">$44,500</span><a href="#contact" class="btn btn-small">View</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-type="sports" data-animate="fade-up">
+            <div class="car-img"><img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=70" alt="Yellow sports car on an open road" loading="lazy" /><span class="tag">Sports</span></div>
+            <div class="car-body">
+              <h3>Audi R8 V10</h3>
+              <p class="meta">2020 · 15,300 km · Petrol</p>
+              <div class="car-foot"><span class="price">$142,000</span><a href="#contact" class="btn btn-small">View</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-type="suv" data-animate="fade-up">
+            <div class="car-img"><img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=70" alt="Dark SUV driving through a forest" loading="lazy" /><span class="tag">SUV</span></div>
+            <div class="car-body">
+              <h3>Range Rover Sport</h3>
+              <p class="meta">2021 · 29,700 km · Diesel</p>
+              <div class="car-foot"><span class="price">$81,200</span><a href="#contact" class="btn btn-small">View</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="section section-alt" id="features">
+      <div class="container">
+        <div class="section-head" data-animate="fade-up">
+          <p class="eyebrow">Why Velocity</p>
+          <h2>Car buying, without the hassle</h2>
+        </div>
+        <div class="feature-grid">
+          <div class="feature" data-animate="fade-up">
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <h3>200-point inspection</h3>
+            <p>Every car is checked by certified mechanics before it's listed.</p>
+          </div>
+          <div class="feature" data-animate="fade-up">
+            <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div>
+            <h3>Easy financing</h3>
+            <p>Get pre-approved in minutes with rates from leading lenders.</p>
+          </div>
+          <div class="feature" data-animate="fade-up">
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></div>
+            <h3>7-day returns</h3>
+            <p>Not in love? Return it within 7 days for a full refund.</p>
+          </div>
+          <div class="feature" data-animate="fade-up">
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M1 16V6h13v10M14 9h4l3 3v4h-7"/><circle cx="6" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div>
+            <h3>Home delivery</h3>
+            <p>We bring your new car to your driveway, free within 300 km.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PINNED SHOWCASE ============ -->
+    <section class="showcase" id="showcase">
+      <div class="showcase-inner">
+        <div class="showcase-media">
+          <img class="sc-img" src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1200&q=70" alt="Muscle car in motion on a highway" loading="lazy" />
+          <img class="sc-img" src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=1200&q=70" alt="Luxury car interior with leather seats" loading="lazy" />
+          <img class="sc-img" src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=1200&q=70" alt="Sports car front with headlights on" loading="lazy" />
+        </div>
+        <div class="showcase-panels">
+          <div class="sc-panel">
+            <p class="eyebrow">01 — Performance</p>
+            <h2>0–100 in 3.2s</h2>
+            <p>Filter by horsepower, torque and acceleration to find the car that matches how you drive.</p>
+          </div>
+          <div class="sc-panel">
+            <p class="eyebrow">02 — Comfort</p>
+            <h2>Built for the long haul</h2>
+            <p>360° interior photos and detailed trim specs show you exactly what you're getting.</p>
+          </div>
+          <div class="sc-panel">
+            <p class="eyebrow">03 — Safety</p>
+            <h2>5-star rated</h2>
+            <p>Full history reports and safety ratings come with every listing at no extra cost.</p>
+          </div>
+          <div class="sc-progress"><span id="sc-progress-fill"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BRANDS ============ -->
+    <section class="brands" id="brands" aria-label="Brands we sell">
+      <div class="marquee">
+        <div class="marquee-track">
+          <span>PORSCHE</span><span>BMW</span><span>AUDI</span><span>TESLA</span><span>MERCEDES</span><span>FERRARI</span><span>LEXUS</span><span>VOLVO</span>
+          <span aria-hidden="true">PORSCHE</span><span aria-hidden="true">BMW</span><span aria-hidden="true">AUDI</span><span aria-hidden="true">TESLA</span><span aria-hidden="true">MERCEDES</span><span aria-hidden="true">FERRARI</span><span aria-hidden="true">LEXUS</span><span aria-hidden="true">VOLVO</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head" data-animate="fade-up">
+          <p class="eyebrow">How it works</p>
+          <h2>Four steps to the keys</h2>
+        </div>
+        <div class="timeline">
+          <span class="timeline-line" aria-hidden="true"></span>
+          <div class="step" data-animate="fade-left"><span class="step-num">1</span><div><h3>Browse</h3><p>Search thousands of certified cars with honest photos and prices.</p></div></div>
+          <div class="step" data-animate="fade-left"><span class="step-num">2</span><div><h3>Finance</h3><p>Choose a plan and get approved online in minutes.</p></div></div>
+          <div class="step" data-animate="fade-left"><span class="step-num">3</span><div><h3>Inspect</h3><p>Book a test drive or review the full inspection report remotely.</p></div></div>
+          <div class="step" data-animate="fade-left"><span class="step-num">4</span><div><h3>Deliver</h3><p>Sign digitally, and we'll deliver your car to your door.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="section section-alt" id="reviews">
+      <div class="container">
+        <div class="section-head" data-animate="fade-up">
+          <p class="eyebrow">Reviews</p>
+          <h2>Drivers love us</h2>
+        </div>
+        <div class="review-grid">
+          <figure class="review" data-animate="fade-right">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"I bought my X5 from my sofa, and it arrived two days later. Easiest purchase I've ever made."</blockquote>
+            <figcaption><strong>Sarah K.</strong> · BMW X5</figcaption>
+          </figure>
+          <figure class="review" data-animate="fade-up">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"The inspection report was spot on. No surprises, and the financing beat my bank's rate."</blockquote>
+            <figcaption><strong>Daniel R.</strong> · Tesla Model S</figcaption>
+          </figure>
+          <figure class="review" data-animate="fade-left">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"I sold my old car and bought a new one on the same platform the same week. Great service."</blockquote>
+            <figcaption><strong>Amina T.</strong> · Porsche 911</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta" id="contact">
+      <div class="cta-bg" aria-hidden="true"></div>
+      <div class="container cta-inner" data-animate="zoom">
+        <h2>Ready to drive?</h2>
+        <p>Get new arrivals and exclusive deals delivered to your inbox.</p>
+        <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Subscribed ✓';">
+          <label class="sr-only" for="cta-email">Email address</label>
+          <input id="cta-email" type="email" placeholder="you@example.com" required />
+          <button type="submit" class="btn btn-primary">Get Started</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#" class="logo"><span class="logo-mark">V</span><span class="logo-text">Velocity<b>Motors</b></span></a>
+        <p class="footer-about">The smarter way to buy and sell cars online, with certified quality and no haggling.</p>
+      </div>
+      <div>
+        <h4>Quick links</h4>
+        <ul><li><a href="#inventory">Inventory</a></li><li><a href="#features">Why us</a></li><li><a href="#how">How it works</a></li><li><a href="#reviews">Reviews</a></li></ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul><li><a href="#">Help center</a></li><li><a href="#">Financing</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact us</a></li></ul>
+      </div>
+      <div>
+        <h4>Follow us</h4>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H8v4h2v7h4v-7h3l1-4h-4V9Z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3V9Z"/></svg></a>
+        </div>
+        <p class="footer-contact">support@velocitymotors.example<br />+1 (555) 010-2026</p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Velocity Motors. All rights reserved.</span>
+      <span><a href="#">Privacy</a> · <a href="#">Terms</a></span>
+    </div>
+  </footer>
+</body>
+</html>
